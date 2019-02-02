@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<!--author @duutabib.
+    date : Sat Feb  2 08:57:51 GMT 2019.
+    This is a rendition of the JavaScript Drum Kit by Wes Bos.
+    --->
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>JS Drum Kit</title>
+  <link rel="stylesheet" href="styleio.css">
+</head>
+<body>
+
+  <div class="keys" >
+    <div data-key="50" class="key">
+      <kbd>@</kbd>
+      <span class="sound">clap</span>
+    </div>
+    <div data-key="68" class="key">
+      <kbd>d</kbd>
+      <span class="sound">hihat</span>
+    </div>
+    <div data-key="85" class="key">
+      <kbd>u</kbd>
+      <span class="sound">kick</span>
+    </div>
+    <div data-key="84" class="key">
+      <kbd>t</kbd>
+      <span class="sound">openhat</span>
+    </div>
+    <div data-key="65" class="key">
+      <kbd>a</kbd>
+      <span class="sound">boom</span>
+    </div>
+    <div data-key="66" class="key">
+      <kbd>b</kbd>
+      <span class="sound">ride</span>
+    </div>
+    <div data-key="190" class="key">
+      <kbd>.</kbd>
+      <span class="sound">snare</span>
+    </div>
+    <div data-key="73" class="key">
+      <kbd>i</kbd>
+      <span class="sound">tom</span>
+    </div>
+    <div data-key="79" class="key">
+      <kbd>o</kbd>
+      <span class="sound">tink</span>
+    </div>
+  </div>
+
+  <audio data-key="50" src="sounds/clap.wav"></audio>
+  <audio data-key="68" src="sounds/hihat.wav"></audio>
+  <audio data-key="85" src="sounds/kick.wav"></audio>
+  <audio data-key="84" src="sounds/openhat.wav"></audio>
+  <audio data-key="65" src="sounds/boom.wav"></audio>
+  <audio data-key="66" src="sounds/ride.wav"></audio>
+  <audio data-key="190" src="sounds/snare.wav"></audio>
+  <audio data-key="73" src="sounds/tom.wav"></audio>
+  <audio data-key="79" src="sounds/tink.wav"></audio>
+
+<script>
+  window.addEventListener('keydown',  function(e) {
+    const audio = document.querySelector(`audio[data-key ="${e.keyCode}"]`);
+    const key = document.querySelector(`.key[data-key ="${e.keyCode}"]`);
+    if(!audio) return;//discontinue run of program.
+    audio.currentTime = 0; //reminds to start position to allow for continues play with multiple clicks.
+    audio.play();
+    key.classList.add('playing');
+  });
+
+  function removeTransition(e){
+    if(e.propertyName !== 'transform') return; //
+
+    this.classList.remove('playing');
+
+  }
+
+  const keys = document.querySelectorAll('.key');
+  keys.forEach(key => key.addEventListener('transitionend', removeTransition));
+
+</script>
+
+
+</body>
+</html>
